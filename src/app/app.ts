@@ -27,7 +27,11 @@ export class App {
     { id: 'mathe', label: 'Mathe II', active: false},
     { id: 'timmy-1', label: 'Timmy der Wal (lebendig)', active: false},
     { id: 'timmy-2', label: 'Timmy der Wal (Kadaver)', active: false},
-    { id: 'se', label: 'Software Engineering (Modul)', active: false}
+    { id: 'se', label: 'Software Engineering (Modul)', active: false},
+    { id: 'wipraeko', label: 'Wissenschaftliche Präsentation und Kommunikation (Modul)', active: false},
+    { id: 'php2shell', label: 'PHP2Shell (Sicherheitslücke)', active: false},
+    { id: 'horstl', label: 'HORSTL (Hochschul Organisations System für Studium und Lehre)', active: false},
+    { id: 'brine', label: 'Heiße Glühbirne (Essen)', active: false},
   ]);
 
   protected readonly wobbleActive = signal(false);
