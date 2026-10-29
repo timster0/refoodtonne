@@ -15,11 +15,11 @@
         <img [src]="'/housemd.png'" class="house-overlay" [class.visible]="overlayVisible()">
         <!-- <div class="house-overlay" [class.visible]="overlayVisible()"></div> -->
       </div>
+      <p class="eyebrow">Sonderfall-Analyse</p>
+      <h1>{{ question }}</h1>
     </div>
 
     <div class="content-panel">
-      <p class="eyebrow">Sonderfall-Analyse</p>
-      <h1>{{ question }}</h1>
 
       <div class="controls" role="list" aria-label="Konfigurations-Liste">
         @for (option of options(); track option.id) {
