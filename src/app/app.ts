@@ -32,6 +32,7 @@ export class App {
     { id: 'php2shell', label: 'PHP2Shell (Sicherheitslücke)', active: false},
     { id: 'horstl', label: 'HORSTL (Hochschul Organisations System für Studium und Lehre)', active: false},
     { id: 'brine', label: 'Heiße Glühbirne (Essen)', active: false},
+{ id: 'spannung', label: 'Spannungsabfall', active: false }
   ]);
 
   protected readonly wobbleActive = signal(false);
