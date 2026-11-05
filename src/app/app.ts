@@ -23,6 +23,7 @@ export class App {
     { id: 'plutonium', label: 'Waffenfähiges Plutonium', active: false},
     { id: 'tierkadaver', label: 'Tierkadaver', active: false },
     { id: 'a.wagner', label: 'A. Wagner', active: false},
+{ id: 'awtot', label: 'A. Wagner (Kadaver)', active: false },
     { id: 'uran', label: 'Hoch angereichertes Uran ☢️', active: false},
     { id: 'mathe', label: 'Mathe II', active: false},
     { id: 'timmy-1', label: 'Timmy der Wal (lebendig)', active: false},
@@ -70,6 +71,6 @@ export class App {
   }
 
   protected conditionRejected(option: ConfigOption): boolean {
-    return (option.id === 'tierkadaver' || option.id === 'timmy-2') && option.active
+    return (option.id === 'tierkadaver' || option.id === 'timmy-2' || option.id === 'awtot') && option.active
   }
 }
