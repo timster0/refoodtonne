@@ -23,7 +23,7 @@ export class App {
     { id: 'plutonium', label: 'Waffenfähiges Plutonium', active: false},
     { id: 'tierkadaver', label: 'Tierkadaver', active: false },
     { id: 'a.wagner', label: 'A. Wagner', active: false},
-{ id: 'awtot', label: 'A. Wagner (Kadaver)', active: false },
+    { id: 'awtot', label: 'A. Wagner (Kadaver)', active: false },
     { id: 'uran', label: 'Hoch angereichertes Uran ☢️', active: false},
     { id: 'mathe', label: 'Mathe II', active: false},
     { id: 'timmy-1', label: 'Timmy der Wal (lebendig)', active: false},
@@ -33,7 +33,8 @@ export class App {
     { id: 'php2shell', label: 'PHP2Shell (Sicherheitslücke)', active: false},
     { id: 'horstl', label: 'HORSTL (Hochschul Organisations System für Studium und Lehre)', active: false},
     { id: 'brine', label: 'Heiße Glühbirne (Essen)', active: false},
-{ id: 'spannung', label: 'Spannungsabfall', active: false }
+    { id: 'spannung', label: 'Spannungsabfall', active: false },
+    { id: 'yobsti, label: 'Yobsti (Supermarkt)', active: false }
   ]);
 
   protected readonly wobbleActive = signal(false);
