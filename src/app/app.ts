@@ -40,7 +40,8 @@ export class App {
     { id: 'horstl', label: 'HORSTL (Hochschul Organisations System für Studium und Lehre)', active: false},
     { id: 'brine', label: 'Heiße Glühbirne (Essen)', active: false},
     { id: 'spannung', label: 'Spannungsabfall', active: false },
-    { id: 'yobsti', label: 'Yobsti (Supermarkt)', active: false }
+    { id: 'yobsti', label: 'Yobsti (Supermarkt)', active: false },
+    { id: 'bigbox', label: 'ReFood Big Box (Speiserestebehälter)', active: false }
   ]);
 
   protected readonly wobbleActive = signal(false);
