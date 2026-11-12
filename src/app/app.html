@@ -1,6 +1,17 @@
+<button
+  type="button"
+  class="mode-switch"
+  (click)="toggleMode()"
+  [attr.aria-label]="
+    mode() === 'classic' ? 'Zum Swipe-Modus wechseln' : 'Zur Listenansicht wechseln'
+  "
+>
+  {{ mode() === 'classic' ? 'Swipe-Modus' : 'Listen-Modus' }}
+</button>
+
 <main class="app-shell">
   <section class="catalog-card">
-    <div class="image-panel">
+    <div class="image-panel" [class.static]="mode() === 'tinder'">
       <div class="status-pill" [class.rejected]="isRejected">
         {{ isRejected ? 'MÖP ⚠️ TOT ☠️! Doch nicht in die Refood-Tonne!!' : 'Ja, darf es!' }}
       </div>
@@ -12,7 +23,7 @@
           [class.grayscale]="isRejected"
           [class.wobble]="wobbleActive()"
         />
-        <img [src]="'/housemd.png'" class="house-overlay" [class.visible]="overlayVisible()">
+        <img [src]="'/housemd.png'" class="house-overlay" [class.visible]="overlayVisible()" />
         <!-- <div class="house-overlay" [class.visible]="overlayVisible()"></div> -->
       </div>
       <p class="eyebrow">Sonderfall-Analyse</p>
@@ -20,25 +31,92 @@
     </div>
 
     <div class="content-panel">
-
-      <div class="controls" role="list" aria-label="Konfigurations-Liste">
-        @for (option of options(); track option.id) {
-          <div class="toggle-row">
-            <div class="toggle-copy">
-              <span class="toggle-label">{{ option.label }}</span>
+      @if (mode() === 'classic') {
+        <div class="controls" role="list" aria-label="Konfigurations-Liste">
+          @for (option of options(); track option.id) {
+            <div class="toggle-row">
+              <div class="toggle-copy">
+                <span class="toggle-label">{{ option.label }}</span>
+              </div>
+              <button
+                type="button"
+                class="toggle"
+                [class.active]="option.active"
+                (click)="toggle(option.id)"
+                [attr.aria-pressed]="option.active"
+              >
+                <span class="toggle-switch"></span>
+              </button>
             </div>
+          }
+        </div>
+      } @else {
+        <div class="swipe-area">
+          <div class="deck" aria-live="polite">
+            @if (deckDone()) {
+              <div class="deck-empty">
+                <p class="toggle-label">Keine weiteren Matches</p>
+                <button type="button" class="restart" (click)="restartDeck()">
+                  Nochmal swipen
+                </button>
+              </div>
+            }
+            @for (option of deck(); track option.id; let i = $index) {
+              <article
+                class="swipe-card"
+                [class.top]="i === 0"
+                [class.dragging]="i === 0 && dragging()"
+                [style.z-index]="10 - i"
+                [style.transform]="
+                  i === 0
+                    ? topCardTransform()
+                    : 'translateY(' + i * 10 + 'px) scale(' + (1 - i * 0.04) + ')'
+                "
+                (pointerdown)="i === 0 && onPointerDown($event)"
+                (pointermove)="i === 0 && onPointerMove($event)"
+                (pointerup)="i === 0 && onPointerUp($event)"
+                (pointercancel)="i === 0 && onPointerUp($event)"
+              >
+                @if (i === 0) {
+                  <span
+                    class="stamp stamp-yes"
+                    [style.opacity]="flyOut() === 'right' ? 1 : swipeProgress()"
+                    >REIN DAMIT</span
+                  >
+                  <span
+                    class="stamp stamp-no"
+                    [style.opacity]="flyOut() === 'left' ? 1 : -swipeProgress()"
+                    >NOPE</span
+                  >
+                }
+                <span class="card-counter">{{ deckIndex() + i + 1 }} / {{ options().length }}</span>
+                <h2 class="card-label">{{ option.label }}</h2>
+              </article>
+            }
+          </div>
+
+          <div class="swipe-actions">
             <button
               type="button"
-              class="toggle"
-              [class.active]="option.active"
-              (click)="toggle(option.id)"
-              [attr.aria-pressed]="option.active"
+              class="swipe-btn nope"
+              (click)="swipe('left')"
+              [disabled]="deckDone()"
+              aria-label="Nope – nicht in die Tonne"
             >
-              <span class="toggle-switch"></span>
+              ✕
+            </button>
+            <button
+              type="button"
+              class="swipe-btn like"
+              (click)="swipe('right')"
+              [disabled]="deckDone()"
+              aria-label="Rein damit – in die Tonne"
+            >
+              ♥
             </button>
           </div>
-        }
-      </div>
+        </div>
+      }
     </div>
   </section>
 </main>

@@ -27,13 +27,41 @@ describe('App', () => {
     const fixture = TestBed.createComponent(App);
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
-    const toggle = Array.from(compiled.querySelectorAll('button')).find((button) =>
-      button.textContent?.includes('Tierkadaver')
-    ) as HTMLButtonElement | undefined;
+    const toggle = Array.from(compiled.querySelectorAll('.toggle-row'))
+      .find((row) => row.textContent?.includes('Tierkadaver'))
+      ?.querySelector('button') as HTMLButtonElement | undefined;
 
     toggle?.click();
     fixture.detectChanges();
 
-    expect(compiled.querySelector('img')?.classList.contains('grayscale')).toBeTrue();
+    expect(compiled.querySelector('.tonne-image')?.classList.contains('grayscale')).toBe(true);
+  });
+
+  it('should switch to swipe mode and gray out the image when a Kadaver is swiped right', async () => {
+    vi.useFakeTimers();
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+
+    (compiled.querySelector('.mode-switch') as HTMLButtonElement).click();
+    fixture.detectChanges();
+    expect(compiled.querySelector('.swipe-card')).not.toBeNull();
+
+    const like = compiled.querySelector('.swipe-btn.like') as HTMLButtonElement;
+    const nope = compiled.querySelector('.swipe-btn.nope') as HTMLButtonElement;
+
+    // Swipe until "Tierkadaver" is the top card, then swipe it right.
+    while (!compiled.querySelector('.swipe-card.top')?.textContent?.includes('Tierkadaver')) {
+      nope.click();
+      vi.advanceTimersByTime(400);
+      fixture.detectChanges();
+    }
+    expect(compiled.querySelector('.tonne-image')?.classList.contains('grayscale')).toBe(false);
+
+    like.click();
+    vi.advanceTimersByTime(400);
+    fixture.detectChanges();
+    expect(compiled.querySelector('.tonne-image')?.classList.contains('grayscale')).toBe(true);
+    vi.useRealTimers();
   });
 });

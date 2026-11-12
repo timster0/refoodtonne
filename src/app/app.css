@@ -146,6 +146,10 @@ h1 {
   gap: 0.4rem;
 }
 
+.image-panel.static {
+  position: static;
+}
+
 .image-stack {
   position: relative;
   display: inline-flex;
@@ -198,6 +202,180 @@ h1 {
 .house-overlay.visible {
   opacity: 1;
   transition: opacity 5s ease-in;
+}
+
+/* --- Mode switch ---------------------------------------------------------- */
+.mode-switch {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 10000;
+  padding: 0.55rem 0.95rem;
+  border-radius: 999px;
+  border: 1px solid #111111;
+  background: #ffffff;
+  color: #111111;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.14);
+  transition: transform 150ms ease;
+}
+
+.mode-switch:hover {
+  transform: translateY(-1px);
+}
+
+/* --- Tinder swipe view ----------------------------------------------------- */
+.swipe-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.deck {
+  position: relative;
+  width: min(100%, 360px);
+  height: 220px;
+}
+
+.swipe-card {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.4rem;
+  padding: 1.2rem;
+  border-radius: 1.5rem;
+  background: #f6f6f6;
+  border: 1px solid #111111;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  user-select: none;
+  touch-action: pan-y;
+  transition: transform 320ms ease;
+  overflow: hidden;
+}
+
+.swipe-card.top {
+  background: #ffffff;
+  cursor: grab;
+}
+
+.swipe-card.dragging {
+  cursor: grabbing;
+  transition: none;
+}
+
+.card-counter {
+  position: absolute;
+  top: 1rem;
+  right: 1.1rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: #444444;
+}
+
+.card-label {
+  margin: 0;
+  font-size: 1.6rem;
+  line-height: 1.1;
+  font-weight: 800;
+  color: #111111;
+}
+
+.stamp {
+  position: absolute;
+  top: 1.2rem;
+  padding: 0.25rem 0.7rem;
+  border: 3px solid currentColor;
+  border-radius: 0.5rem;
+  font-weight: 900;
+  font-size: 1.3rem;
+  letter-spacing: 0.1em;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.stamp-yes {
+  left: 1.1rem;
+  color: #1d8f3d;
+  transform: rotate(-14deg);
+}
+
+.stamp-no {
+  right: 1.1rem;
+  color: #c0262d;
+  transform: rotate(14deg);
+}
+
+.deck-empty {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  text-align: center;
+  border-radius: 1.5rem;
+  border: 1px dashed #111111;
+  padding: 1rem;
+}
+
+.restart {
+  padding: 0.55rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid #111111;
+  background: #167600db;
+  color: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.swipe-actions {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.swipe-btn {
+  width: 3.6rem;
+  height: 3.6rem;
+  border-radius: 50%;
+  border: 1px solid #111111;
+  background: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  transition: transform 150ms ease;
+}
+
+.swipe-btn.nope {
+  color: #c0262d;
+}
+
+.swipe-btn.like {
+  color: #1d8f3d;
+}
+
+.swipe-btn:hover:not(:disabled) {
+  transform: translateY(-2px) scale(1.05);
+}
+
+.swipe-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.swipe-hint {
+  margin: 0;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #444444;
+  min-height: 1.4em;
 }
 
 @keyframes wobble {
