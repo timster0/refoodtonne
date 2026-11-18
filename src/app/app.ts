@@ -41,7 +41,10 @@ export class App {
     { id: 'brine', label: 'Heiße Glühbirne (Essen)', active: false},
     { id: 'spannung', label: 'Spannungsabfall', active: false },
     { id: 'yobsti', label: 'Yobsti (Supermarkt)', active: false },
-    { id: 'bigbox', label: 'ReFood Big Box (Speiserestebehälter)', active: false }
+    { id: 'bigbox', label: 'ReFood Big Box (Speiserestebehälter)', active: false },
+{ id: 'bummkuh', label: 'Gesprengter Kuhkadaver', active: false },
+{ id: 'vlada', label: 'Vladas Mixed Signals', active: false },
+
   ]);
 
   protected readonly wobbleActive = signal(false);
