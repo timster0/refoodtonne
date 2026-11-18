@@ -193,6 +193,15 @@ export class App {
     return this.options().some((option) => this.conditionRejected(option));
   }
 
+  protected get isVlada(): Boolean {
+    if (this.lastSwipe == null) {
+      return false;
+}
+    if (this.lastSwipe.id === 'vlada') return true;
+    return false;
+
+}
+
   protected conditionRejected(option: ConfigOption): boolean {
     return (option.id === 'tierkadaver' || option.id === 'timmy-2' || option.id === 'awtot') && option.active
   }
