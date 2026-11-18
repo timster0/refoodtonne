@@ -194,10 +194,9 @@ export class App {
   }
 
   protected get isVlada(): Boolean {
-    if (this.lastSwipe() == null) {
-      return false;
+    if (this.lastSwipe() != null) {
+      if (this.lastSwipe().id === 'vlada') return true;
 }
-    if (this.lastSwipe().id === 'vlada') return true;
     return false;
 
 }
