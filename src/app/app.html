@@ -12,8 +12,8 @@
 <main class="app-shell">
   <section class="catalog-card">
     <div class="image-panel" [class.static]="mode() === 'tinder'">
-      <div class="status-pill" [class.rejected]="isRejected">
-@if(lastSwipe !== null && lastSwipe.id === 'wlada') {
+      <div class="status-pill" [class.rejected]="isRejected || lastSwipe() !== null && lastSwipe().id === 'wlada'">
+@if(lastSwipe() !== null && lastSwipe().id === 'wlada') {
 {{ 'Pack endlich die Fritten in die Tüte und komm mit David zusammen' }}
 } @else {
         {{ isRejected ? 'MÖP ⚠️ TOT ☠️! Doch nicht in die Refood-Tonne!!' : 'Ja, darf es!' }}
