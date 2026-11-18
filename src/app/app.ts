@@ -103,7 +103,7 @@ export class App {
   protected readonly dragY = signal(0);
   protected readonly dragging = signal(false);
   protected readonly flyOut = signal<SwipeDirection | null>(null);
-  protected readonly lastSwipe = signal<{ label: string; direction: SwipeDirection } | null>(null);
+  protected readonly lastSwipe = signal<{id: string; label: string; direction: SwipeDirection } | null>(null);
 
   /** Current card plus up to two cards peeking out underneath. */
   protected readonly deck = computed(() => this.options().slice(this.deckIndex(), this.deckIndex() + 3));
@@ -159,7 +159,7 @@ export class App {
 
     this.flyOut.set(direction);
     this.setActive(card.id, direction === 'right');
-    this.lastSwipe.set({ label: card.label, direction });
+    this.lastSwipe.set({ id: card.id, label: card.label, direction });
 
     globalThis.setTimeout(() => {
       this.deckIndex.update((i) => i + 1);
