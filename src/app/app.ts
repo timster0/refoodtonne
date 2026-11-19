@@ -59,6 +59,11 @@ export class App {
       label: 'Mastodon (dezentrales, quelloffenes soziales Mikroblogging-Netzwerk)',
       active: false,
     },
+    {
+      id: 'mastodon-band',
+      label: 'Mastodon (US-amerikanische Metalband)',
+      active: false,
+    },
   ]);
 
   protected readonly wobbleActive = signal(false);
