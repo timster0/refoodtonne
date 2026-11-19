@@ -15,36 +15,50 @@ interface ConfigOption {
 @Component({
   selector: 'app-root',
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
 export class App {
   protected readonly title = signal('Refood-Check');
   protected readonly question = 'Darf es in die Refood-Tonne?';
 
   protected readonly options = signal<ConfigOption[]>([
-    { id: 'Eier', label: 'Eier', active: false},
+    { id: 'Eier', label: 'Eier', active: false },
     { id: 'stinkefinger', label: 'Stinkefinger', active: false },
     { id: 'schaum', label: 'Schaum', active: false },
     { id: 'klingel', label: 'Klingel', active: false },
-    { id: 'plutonium', label: 'Waffenfähiges Plutonium', active: false},
+    { id: 'plutonium', label: 'Waffenfähiges Plutonium', active: false },
     { id: 'tierkadaver', label: 'Tierkadaver', active: false },
-    { id: 'a.wagner', label: 'A. Wagner', active: false},
+    { id: 'a.wagner', label: 'A. Wagner', active: false },
     { id: 'awtot', label: 'A. Wagner (Kadaver)', active: false },
-    { id: 'uran', label: 'Hoch angereichertes Uran ☢️', active: false},
-    { id: 'mathe', label: 'Mathe II', active: false},
-    { id: 'timmy-1', label: 'Timmy der Wal (lebendig)', active: false},
-    { id: 'timmy-2', label: 'Timmy der Wal (Kadaver)', active: false},
-    { id: 'se', label: 'Software Engineering (Modul)', active: false},
-    { id: 'wipraeko', label: 'Wissenschaftliche Präsentation und Kommunikation (Modul)', active: false},
-    { id: 'php2shell', label: 'PHP2Shell (Sicherheitslücke)', active: false},
-    { id: 'horstl', label: 'HORSTL (Hochschul Organisations System für Studium und Lehre)', active: false},
-    { id: 'brine', label: 'Heiße Glühbirne (Essen)', active: false},
+    { id: 'uran', label: 'Hoch angereichertes Uran ☢️', active: false },
+    { id: 'mathe', label: 'Mathe II', active: false },
+    { id: 'timmy-1', label: 'Timmy der Wal (lebendig)', active: false },
+    { id: 'timmy-2', label: 'Timmy der Wal (Kadaver)', active: false },
+    { id: 'se', label: 'Software Engineering (Modul)', active: false },
+    {
+      id: 'wipraeko',
+      label: 'Wissenschaftliche Präsentation und Kommunikation (Modul)',
+      active: false,
+    },
+    { id: 'php2shell', label: 'PHP2Shell (Sicherheitslücke)', active: false },
+    {
+      id: 'horstl',
+      label: 'HORSTL (Hochschul Organisations System für Studium und Lehre)',
+      active: false,
+    },
+    { id: 'brine', label: 'Heiße Glühbirne (Essen)', active: false },
     { id: 'spannung', label: 'Spannungsabfall', active: false },
     { id: 'yobsti', label: 'Yobsti (Supermarkt)', active: false },
     { id: 'bigbox', label: 'ReFood Big Box (Speiserestebehälter)', active: false },
-{ id: 'bummkuh', label: 'Gesprengter Kuhkadaver', active: false },
-{ id: 'vlada', label: 'Vladas Mixed Signals', active: false },
-
+    { id: 'bummkuh', label: 'Gesprengter Kuhkadaver', active: false },
+    { id: 'vlada', label: 'Vladas Mixed Signals', active: false },
+    { id: 'vlada-2', label: 'Vladas Mixed Signals (Kadaver)', active: false },
+    { id: 'mastodon-animal', label: 'Mastodon (Tier)', active: false },
+    {
+      id: 'mastodon-social',
+      label: 'Mastodon (dezentrales, quelloffenes soziales Mikroblogging-Netzwerk)',
+      active: false,
+    },
   ]);
 
   protected readonly wobbleActive = signal(false);
@@ -69,7 +83,7 @@ export class App {
   /** Sets an option's state and runs the shared wobble / overlay effects. */
   private setActive(optionId: string, active: boolean): void {
     this.applyOptions(
-      this.options().map((option) => (option.id === optionId ? { ...option, active } : option))
+      this.options().map((option) => (option.id === optionId ? { ...option, active } : option)),
     );
   }
 
@@ -103,15 +117,21 @@ export class App {
   protected readonly dragY = signal(0);
   protected readonly dragging = signal(false);
   protected readonly flyOut = signal<SwipeDirection | null>(null);
-  protected readonly lastSwipe = signal<{id: string; label: string; direction: SwipeDirection } | null>(null);
+  protected readonly lastSwipe = signal<{
+    id: string;
+    label: string;
+    direction: SwipeDirection;
+  } | null>(null);
 
   /** Current card plus up to two cards peeking out underneath. */
-  protected readonly deck = computed(() => this.options().slice(this.deckIndex(), this.deckIndex() + 3));
+  protected readonly deck = computed(() =>
+    this.options().slice(this.deckIndex(), this.deckIndex() + 3),
+  );
   protected readonly deckDone = computed(() => this.deckIndex() >= this.options().length);
 
   /** -1 … 1, how far the current card is pulled towards a decision. */
   protected readonly swipeProgress = computed(() =>
-    Math.max(-1, Math.min(1, this.dragX() / SWIPE_THRESHOLD))
+    Math.max(-1, Math.min(1, this.dragX() / SWIPE_THRESHOLD)),
   );
 
   protected readonly topCardTransform = computed(() => {
@@ -195,9 +215,15 @@ export class App {
 
   protected get isVlada(): Boolean {
     return this.lastSwipe()?.id === 'vlada';
-}
+  }
 
   protected conditionRejected(option: ConfigOption): boolean {
-    return (option.id === 'tierkadaver' || option.id === 'timmy-2' || option.id === 'awtot') && option.active
+    return (
+      (option.id === 'tierkadaver' ||
+        option.id === 'timmy-2' ||
+        option.id === 'awtot' ||
+        option.id === 'vlada-2') &&
+      option.active
+    );
   }
 }
