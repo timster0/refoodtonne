@@ -54,6 +54,7 @@ export class App {
     { id: 'vlada', label: 'Vladas Mixed Signals', active: false },
     { id: 'vlada-2', label: 'Vladas Mixed Signals (Kadaver)', active: false },
     { id: 'mastodon-animal', label: 'Mastodon (Tier)', active: false },
+    { id: 'mastodon-animal-dead', label: 'Mastodon (Tier) (Kadaver)', active: false },
     {
       id: 'mastodon-social',
       label: 'Mastodon (dezentrales, quelloffenes soziales Mikroblogging-Netzwerk)',
@@ -227,7 +228,8 @@ export class App {
       (option.id === 'tierkadaver' ||
         option.id === 'timmy-2' ||
         option.id === 'awtot' ||
-        option.id === 'vlada-2') &&
+        option.id === 'vlada-2' ||
+        option.id === 'mastodon-animal-dead') &&
       option.active
     );
   }
